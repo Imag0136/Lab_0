@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Lab0
 {
@@ -27,8 +28,17 @@ namespace Lab0
                     }
                 }
             }
+            StreamWriter sw = new StreamWriter(@"C:\Users\Imag0136\Pictures\text.txt");
+            for (int i = 0; i < img.Height; i++)
+            {
+                for (int j = 0; j < img.Width; j++)
+                {
+                    sw.Write($"{imgArray[j, i]}");
+                }
+                sw.WriteLine();
+            }
+            sw.Close();        
             return imgArray;
-        }
-        
+        }        
     }
 }
