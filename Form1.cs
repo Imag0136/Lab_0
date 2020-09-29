@@ -63,7 +63,7 @@ namespace Lab0
             if (pictureBox1.Image != null) //если в pictureBox есть изображение
             {
                 DateTime now = DateTime.Now;
-                pictureBox1.Image.Save($"{now:yyyy'-'MM'-'dd}.png");
+                pictureBox1.Image.Save($"{now:yyyy'-'MM'-'dd}.jpg");
             }
         }
 
