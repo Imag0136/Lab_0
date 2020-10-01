@@ -71,7 +71,15 @@ namespace Lab0
         {
             var neuron = new Neuron();
             neuron.ImageToArray(img);
-            neuron.Training();
+            DialogResult res = MessageBox.Show(Convert.ToString(neuron.Training()), "Нейрон", MessageBoxButtons.YesNoCancel);
+            if (res == DialogResult.Yes)
+            {
+
+            }
+            if (res == DialogResult.No)
+            {
+
+            }
         }
     }
 }
