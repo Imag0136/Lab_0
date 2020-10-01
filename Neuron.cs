@@ -15,6 +15,17 @@ namespace Lab0
         public int limit = 0;
         int picturesCount;
         public int[,] imgArray = new int[100, 100];
+        public double[,] weightArray = new double[100, 100];
+
+        public Neuron ()
+        {
+            //Установление случайных весов_________________________________________
+            Random rand = new Random((int)DateTime.Now.Ticks);
+            for (int i = 0; i < 100; i++)
+                for (int j = 0; j < 100; j++)
+                    weightArray[i, j] = Convert.ToDouble(rand.Next(-3, 4) / 10.0);
+            //_____________________________________________________________________
+        }
 
         public void ImageToArray(Bitmap img)
         {            
@@ -44,14 +55,14 @@ namespace Lab0
         }
         public bool Training()
         {
-            var y = new double[100, 100];
-            double[,] weightArray = new double[100, 100];
-            //Установление случайных весов_________________________________________
-            Random rand = new Random((int)DateTime.Now.Ticks);
-            for (int i = 0; i < 100; i++)
-                for (int j = 0; j < 100; j++)
-                    weightArray[i, j] = Convert.ToDouble(rand.Next(-3, 4) / 10.0);
-            //_____________________________________________________________________
+            double[,] y = new double[100, 100];
+            //double[,] weightArray = new double[100, 100];
+            ////Установление случайных весов_________________________________________
+            //Random rand = new Random((int)DateTime.Now.Ticks);
+            //for (int i = 0; i < 100; i++)
+            //    for (int j = 0; j < 100; j++)
+            //        weightArray[i, j] = Convert.ToDouble(rand.Next(-3, 4) / 10.0);
+            ////_____________________________________________________________________
 
             //Находим y
             for (int i = 0; i < 100; i++)
