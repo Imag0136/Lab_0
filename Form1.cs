@@ -47,7 +47,7 @@ namespace Lab0
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "Image Files(*.BMP;*.JPG;*.PNG)|*.BMP;*.JPG;*.PNG";
             if (ofd.ShowDialog() == DialogResult.OK)
-            { 
+            {
                 img = new Bitmap(ofd.FileName);
                 pictureBox1.Image = img;
             }
@@ -69,7 +69,9 @@ namespace Lab0
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Neuron.ImageToArray(img);
+            var neuron = new Neuron();
+            neuron.ImageToArray(img);
+            neuron.Training();
         }
     }
 }
