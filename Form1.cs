@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Lab0
 {
@@ -17,6 +18,9 @@ namespace Lab0
         Pen p = new Pen(Color.Black, 5);
         Graphics g;
         Bitmap img;
+        Neuron neuron = new Neuron();
+        public double alpha = 0.5; //Скорость обучения
+        public double delta;
         public Form1()
         {
             InitializeComponent();
@@ -69,17 +73,43 @@ namespace Lab0
 
         private void button2_Click(object sender, EventArgs e)
         {
-            var neuron = new Neuron();
-            neuron.ImageToArray(img);
-            DialogResult res = MessageBox.Show(Convert.ToString(neuron.Training()), "Нейрон", MessageBoxButtons.YesNoCancel);
+            DialogResult res = MessageBox.Show(Convert.ToString(neuron.Learn(img)), "Нейрон", MessageBoxButtons.YesNoCancel);
             if (res == DialogResult.Yes)
             {
-
+                delta = 1;
+                for (int i = 0; i < img.Width; i++)
+                {
+                    for (int j = 0; j < img.Height; j++)
+                    {
+                        neuron.weightArray[i, j] += alpha*delta*neuron.imgArray[i, j];
+                    }
+                }
             }
             if (res == DialogResult.No)
             {
-
+                delta = -1;
+                for (int i = 0; i < img.Width; i++)
+                {
+                    for (int j = 0; j < img.Height; j++)
+                    {
+                        neuron.weightArray[i, j] += alpha*delta*neuron.imgArray[i, j];
+                    }
+                }
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            StreamWriter sw = new StreamWriter(@"C:\Users\Imag0136\Pictures\text.txt");
+            for (int i = 0; i < img.Height; i++)
+            {
+                for (int j = 0; j < img.Width; j++)
+                {
+                    sw.Write($"{neuron.weightArray[i, j]} ");
+                }
+                sw.WriteLine();
+            }
+            sw.Close();
         }
     }
 }

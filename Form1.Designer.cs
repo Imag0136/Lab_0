@@ -33,6 +33,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.openButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -40,9 +41,10 @@
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.White;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Location = new System.Drawing.Point(19, 108);
+            this.pictureBox1.Location = new System.Drawing.Point(25, 133);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 100);
+            this.pictureBox1.Size = new System.Drawing.Size(133, 123);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -54,9 +56,10 @@
             this.clearButton.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.clearButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.clearButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.clearButton.Location = new System.Drawing.Point(142, 12);
+            this.clearButton.Location = new System.Drawing.Point(189, 15);
+            this.clearButton.Margin = new System.Windows.Forms.Padding(4);
             this.clearButton.Name = "clearButton";
-            this.clearButton.Size = new System.Drawing.Size(103, 59);
+            this.clearButton.Size = new System.Drawing.Size(137, 73);
             this.clearButton.TabIndex = 1;
             this.clearButton.Text = "Очистить";
             this.clearButton.UseVisualStyleBackColor = true;
@@ -67,11 +70,12 @@
             this.button2.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2.Location = new System.Drawing.Point(142, 252);
+            this.button2.Location = new System.Drawing.Point(189, 310);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(103, 59);
+            this.button2.Size = new System.Drawing.Size(137, 73);
             this.button2.TabIndex = 2;
-            this.button2.Text = "Распознать";
+            this.button2.Text = "Обучение";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -80,9 +84,10 @@
             this.openButton.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.openButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.openButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.openButton.Location = new System.Drawing.Point(142, 174);
+            this.openButton.Location = new System.Drawing.Point(189, 214);
+            this.openButton.Margin = new System.Windows.Forms.Padding(4);
             this.openButton.Name = "openButton";
-            this.openButton.Size = new System.Drawing.Size(103, 59);
+            this.openButton.Size = new System.Drawing.Size(137, 73);
             this.openButton.TabIndex = 3;
             this.openButton.Text = "Открыть";
             this.openButton.UseVisualStyleBackColor = true;
@@ -93,24 +98,37 @@
             this.saveButton.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.saveButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.saveButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.saveButton.Location = new System.Drawing.Point(142, 89);
+            this.saveButton.Location = new System.Drawing.Point(189, 110);
+            this.saveButton.Margin = new System.Windows.Forms.Padding(4);
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(103, 59);
+            this.saveButton.Size = new System.Drawing.Size(137, 73);
             this.saveButton.TabIndex = 4;
             this.saveButton.Text = "Сохранить";
             this.saveButton.UseVisualStyleBackColor = true;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(25, 320);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(133, 23);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Сохранить веса";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(257, 323);
+            this.ClientSize = new System.Drawing.Size(343, 398);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.openButton);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.clearButton);
             this.Controls.Add(this.pictureBox1);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Крестик-нолик";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -126,6 +144,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button openButton;
         private System.Windows.Forms.Button saveButton;
+        private System.Windows.Forms.Button button1;
     }
 }
 
