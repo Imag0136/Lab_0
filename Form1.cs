@@ -19,8 +19,7 @@ namespace Lab0
         Graphics g;
         Bitmap img;
         Neuron neuron = new Neuron();
-        public double alpha = 0.5; //Скорость обучения
-        public double delta;
+        
         public Form1()
         {
             InitializeComponent();
@@ -73,29 +72,18 @@ namespace Lab0
 
         private void button2_Click(object sender, EventArgs e)
         {
-            DialogResult res = MessageBox.Show(Convert.ToString(neuron.Learn(img)), "Нейрон", MessageBoxButtons.YesNoCancel);
-            if (res == DialogResult.Yes)
-            {
-                delta = 1;
-                for (int i = 0; i < img.Width; i++)
-                {
-                    for (int j = 0; j < img.Height; j++)
-                    {
-                        neuron.weightArray[i, j] += alpha*delta*neuron.imgArray[i, j];
-                    }
-                }
-            }
-            if (res == DialogResult.No)
-            {
-                delta = -1;
-                for (int i = 0; i < img.Width; i++)
-                {
-                    for (int j = 0; j < img.Height; j++)
-                    {
-                        neuron.weightArray[i, j] += alpha*delta*neuron.imgArray[i, j];
-                    }
-                }
-            }
+            //DialogResult res = MessageBox.Show(Convert.ToString(neuron.Learn(img)), "Нейрон", MessageBoxButtons.YesNoCancel);
+            //if (res == DialogResult.No)
+            //{
+            //    if ()
+            //    for (int i = 0; i < img.Width; i++)
+            //    {
+            //        for (int j = 0; j < img.Height; j++)
+            //        {
+            //            neuron.weightArray[i, j] += alpha*delta*neuron.imgArray[i, j];
+            //        }
+            //    }
+            //}
         }
 
         private void button1_Click(object sender, EventArgs e)
