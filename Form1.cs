@@ -25,6 +25,12 @@ namespace Lab0
             InitializeComponent();
             pictureBox1.Image = new Bitmap(pictureBox1.Width, pictureBox1.Height);
             p.SetLineCap(System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.DashCap.Round);
+            //Установление случайных весов_________________________________________
+            Random rand = new Random((int)DateTime.Now.Ticks);
+            for (int i = 0; i < 100; i++)
+                for (int j = 0; j < 100; j++)
+                    neuron.WeightArray[i, j] = Convert.ToDouble(rand.Next(-3, 4) / 10.0);
+            //_____________________________________________________________________
         }
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
@@ -72,14 +78,16 @@ namespace Lab0
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (neuron.Learn(img))
-            {
-                MessageBox.Show("Все ок");
-            }
-            else
-            {
-                MessageBox.Show("Все не ок");
-            }
+            neuron.Learn(img);
+            //if (neuron.Learn(img))
+            //{
+            //    MessageBox.Show("Все ок");
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Все не ок");
+            //}
+            pictureBox1.Image = new Bitmap(pictureBox1.Width, pictureBox1.Height);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -89,7 +97,7 @@ namespace Lab0
             {
                 for (int j = 0; j < img.Width; j++)
                 {
-                    sw.Write($"{neuron.weightArray[i, j]} ");
+                    sw.Write($"{Math.Round(neuron.WeightArray[i, j])} ");
                 }
                 sw.WriteLine();
             }

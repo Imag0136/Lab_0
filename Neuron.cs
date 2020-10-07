@@ -15,26 +15,16 @@ namespace Lab0
         public byte error = 0;
         public int limit = 0;
         public double sum = 0;
-        public int[,] imgArray = new int[100, 100];
-        public double[,] weightArray = new double[100, 100];
+        public int[,] imgArray;
+        public double[,] WeightArray { get; set; } = new double[100, 100];
         public double alpha = 0.5; //Скорость обучения
         public double delta;
-        
 
-        public Neuron ()
-        {
-            //Установление случайных весов_________________________________________
-            Random rand = new Random((int)DateTime.Now.Ticks);
-            for (int i = 0; i < 100; i++)
-                for (int j = 0; j < 100; j++)
-                    weightArray[i, j] = Convert.ToDouble(rand.Next(-3, 4) / 10.0);
-            //_____________________________________________________________________
-        }
-
-        public bool Learn(Bitmap img)
+        public void Learn(Bitmap img)
         {
             sum = 0;
             error = 0;
+            imgArray = new int[100, 100];
             for (int i = 0; i < img.Width; i++)
             {
                 for (int j = 0; j < img.Height; j++)
@@ -42,7 +32,7 @@ namespace Lab0
                     if (img.GetPixel(i, j) == Color.FromArgb(255, 0, 0, 0))
                     {
                         imgArray[i, j] = 1;
-                        sum += imgArray[i, j] * weightArray[i, j];
+                        sum += imgArray[i, j] * WeightArray[i, j];
                     }
                 }
             }
@@ -57,7 +47,7 @@ namespace Lab0
                     {
                         for (int j = 0; j < img.Height; j++)
                         {
-                            weightArray[i, j] += alpha * delta * imgArray[i, j];
+                            WeightArray[i, j] += alpha * delta * imgArray[i, j];
                         }
                     }
                     error = 1;
@@ -73,14 +63,29 @@ namespace Lab0
                     {
                         for (int j = 0; j < img.Height; j++)
                         {
-                            weightArray[i, j] += alpha * delta * imgArray[i, j];
+                            WeightArray[i, j] += alpha * delta * imgArray[i, j];
                         }
                     }
                     error = 1;
                 }
             }
 
-            return error == 0;
+            StreamWriter sw1 = new StreamWriter(@"C:\Users\Imag0136\Pictures\text1.txt");
+            StreamWriter sw2 = new StreamWriter(@"C:\Users\Imag0136\Pictures\text2.txt");
+            for (int i = 0; i < img.Height; i++)
+            {
+                for (int j = 0; j < img.Width; j++)
+                {
+                    sw1.Write($"{imgArray[i, j]} ");
+                    sw2.Write($"{Math.Round(WeightArray[i, j])} ");
+                }
+                sw1.WriteLine();
+                sw2.WriteLine();
+            }
+            sw1.Close();
+            sw2.Close();
+
+            //return error == 0;
 
             //StreamWriter sw = new StreamWriter(@"C:\Users\Imag0136\Pictures\text.txt");
             //for (int i = 0; i < img.Height; i++)
