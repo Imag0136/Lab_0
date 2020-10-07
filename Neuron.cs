@@ -11,19 +11,15 @@ namespace Lab0
 {
     class Neuron
     {
-        //public int T { get; set; }
-        //public int error;
+        //public byte t = 0;
+        public byte error = 0;
         public int limit = 0;
         public double sum = 0;
-        //public int picturesCount = 10;
-         // скорость обучения
         public int[,] imgArray = new int[100, 100];
         public double[,] weightArray = new double[100, 100];
-        public double[,] y = new double[100, 100];
-
         public double alpha = 0.5; //Скорость обучения
         public double delta;
-        public string result;
+        
 
         public Neuron ()
         {
@@ -36,7 +32,9 @@ namespace Lab0
         }
 
         public bool Learn(Bitmap img)
-        {            
+        {
+            sum = 0;
+            error = 0;
             for (int i = 0; i < img.Width; i++)
             {
                 for (int j = 0; j < img.Height; j++)
@@ -49,19 +47,9 @@ namespace Lab0
                 }
             }
 
-
             if (sum > limit)
             {
-                result = "Это крестик?";
-            }
-            else
-            {
-                result = "Это нолик?";
-            }
-
-            if (sum > limit)
-            {
-                DialogResult res = MessageBox.Show(result, "Нейрон", MessageBoxButtons.YesNoCancel);
+                DialogResult res = MessageBox.Show("Это крестик?", "Нейрон", MessageBoxButtons.YesNoCancel);
                 if (res == DialogResult.No)
                 {
                     delta = 0 - 1;
@@ -72,11 +60,12 @@ namespace Lab0
                             weightArray[i, j] += alpha * delta * imgArray[i, j];
                         }
                     }
+                    error = 1;
                 }
             }
             else
             {
-                DialogResult res = MessageBox.Show("Это нолик", "Нейрон", MessageBoxButtons.YesNoCancel);
+                DialogResult res = MessageBox.Show("Это нолик?", "Нейрон", MessageBoxButtons.YesNoCancel);
                 if (res == DialogResult.No)
                 {
                     delta = 1 - 0;
@@ -87,10 +76,12 @@ namespace Lab0
                             weightArray[i, j] += alpha * delta * imgArray[i, j];
                         }
                     }
+                    error = 1;
                 }
             }
 
-            return sum > limit;
+            return error == 0;
+
             //StreamWriter sw = new StreamWriter(@"C:\Users\Imag0136\Pictures\text.txt");
             //for (int i = 0; i < img.Height; i++)
             //{

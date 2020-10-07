@@ -72,18 +72,14 @@ namespace Lab0
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //DialogResult res = MessageBox.Show(Convert.ToString(neuron.Learn(img)), "Нейрон", MessageBoxButtons.YesNoCancel);
-            //if (res == DialogResult.No)
-            //{
-            //    if ()
-            //    for (int i = 0; i < img.Width; i++)
-            //    {
-            //        for (int j = 0; j < img.Height; j++)
-            //        {
-            //            neuron.weightArray[i, j] += alpha*delta*neuron.imgArray[i, j];
-            //        }
-            //    }
-            //}
+            if (neuron.Learn(img))
+            {
+                MessageBox.Show("Все ок");
+            }
+            else
+            {
+                MessageBox.Show("Все не ок");
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
