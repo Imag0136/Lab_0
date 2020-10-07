@@ -31,10 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.clearButton = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.recognizeButton = new System.Windows.Forms.Button();
             this.openButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -64,18 +63,18 @@
             this.clearButton.UseVisualStyleBackColor = true;
             this.clearButton.Click += new System.EventHandler(this.Form1_Load);
             // 
-            // button2
+            // recognizeButton
             // 
-            this.button2.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2.Location = new System.Drawing.Point(142, 252);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(103, 59);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Обучение";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.recognizeButton.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.recognizeButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.recognizeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.recognizeButton.Location = new System.Drawing.Point(142, 252);
+            this.recognizeButton.Name = "recognizeButton";
+            this.recognizeButton.Size = new System.Drawing.Size(103, 59);
+            this.recognizeButton.TabIndex = 2;
+            this.recognizeButton.Text = "Распознать";
+            this.recognizeButton.UseVisualStyleBackColor = true;
+            this.recognizeButton.Click += new System.EventHandler(this.recognizeButton_Click);
             // 
             // openButton
             // 
@@ -103,26 +102,14 @@
             this.saveButton.UseVisualStyleBackColor = true;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(19, 260);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 19);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Сохранить веса";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(257, 323);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.openButton);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.recognizeButton);
             this.Controls.Add(this.clearButton);
             this.Controls.Add(this.pictureBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -138,10 +125,9 @@
 
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button clearButton;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button recognizeButton;
         private System.Windows.Forms.Button openButton;
         private System.Windows.Forms.Button saveButton;
-        private System.Windows.Forms.Button button1;
     }
 }
 

@@ -19,39 +19,48 @@ namespace Lab0
         public double[,] WeightArray { get; set; } = new double[100, 100];
         public double alpha = 0.5; //Скорость обучения
         public double delta;
+        public string PathX;
+        public string PathO;
+        public int y;
+        public int yk;
+        
 
 
-        public string GetRandomFile()
+        public void GetRandomFile()
         {
             Random rand = new Random();
             string[] files1 = Directory.GetFiles(Directory.GetCurrentDirectory(), "*Крестик*.jpg");
             string[] files2 = Directory.GetFiles(Directory.GetCurrentDirectory(), "*Нолик*.jpg");
             Console.WriteLine(files1[rand.Next(files1.Length)]);
-            return files1[rand.Next(files1.Length)];
+            PathX = files1[rand.Next(files1.Length)];
+            PathO = files2[rand.Next(files2.Length)];
+            //return files1[rand.Next(files1.Length)];
         }
         public void Learn(Bitmap img)
-        {
-            sum = 0;
+        {          
             error = 0;
-            imgArray = new int[100, 100];
-            for (int i = 0; i < img.Width; i++)
+            for (int k = 0; k < 10; k++)
             {
-                for (int j = 0; j < img.Height; j++)
+                sum = 0;
+                imgArray = new int[100, 100];
+                img = k < 5 ? new Bitmap($"Крестик{k}.jpg") : new Bitmap($"Нолик{k}.jpg");
+                for (int i = 0; i < img.Width; i++)
                 {
-                    if (img.GetPixel(i, j) == Color.FromArgb(255, 0, 0, 0))
+                    for (int j = 0; j < img.Height; j++)
                     {
-                        imgArray[i, j] = 1;
-                        sum += imgArray[i, j] * WeightArray[i, j];
+                        if (img.GetPixel(i, j) == Color.FromArgb(255, 0, 0, 0))
+                        {
+                            imgArray[i, j] = 1;
+                            sum += imgArray[i, j] * WeightArray[i, j];
+                        }
                     }
                 }
-            }
+                y = sum > limit ? 1 : 0;
+                yk = k < 5 ? 1 : 0;
 
-            if (sum > limit)
-            {
-                DialogResult res = MessageBox.Show("Это крестик?", "Нейрон", MessageBoxButtons.YesNoCancel);
-                if (res == DialogResult.No)
+                if (y != yk)
                 {
-                    delta = 0 - 1;
+                    delta = yk - y;
                     for (int i = 0; i < img.Width; i++)
                     {
                         for (int j = 0; j < img.Height; j++)
@@ -62,22 +71,52 @@ namespace Lab0
                     error = 1;
                 }
             }
-            else
-            {
-                DialogResult res = MessageBox.Show("Это нолик?", "Нейрон", MessageBoxButtons.YesNoCancel);
-                if (res == DialogResult.No)
-                {
-                    delta = 1 - 0;
-                    for (int i = 0; i < img.Width; i++)
-                    {
-                        for (int j = 0; j < img.Height; j++)
-                        {
-                            WeightArray[i, j] += alpha * delta * imgArray[i, j];
-                        }
-                    }
-                    error = 1;
-                }
-            }
+            if (error == 1) Learn(img);
+            //imgArray = new int[100, 100];
+            //for (int i = 0; i < img.Width; i++)
+            //{
+            //    for (int j = 0; j < img.Height; j++)
+            //    {
+            //        if (img.GetPixel(i, j) == Color.FromArgb(255, 0, 0, 0))
+            //        {
+            //            imgArray[i, j] = 1;
+            //            sum += imgArray[i, j] * WeightArray[i, j];
+            //        }
+            //    }
+            //}
+
+            //if (sum > limit)
+            //{
+            //    DialogResult res = MessageBox.Show("Это крестик?", "Нейрон", MessageBoxButtons.YesNoCancel);
+            //    if (res == DialogResult.No)
+            //    {
+            //        delta = 0 - 1;
+            //        for (int i = 0; i < img.Width; i++)
+            //        {
+            //            for (int j = 0; j < img.Height; j++)
+            //            {
+            //                WeightArray[i, j] += alpha * delta * imgArray[i, j];
+            //            }
+            //        }
+            //        error = 1;
+            //    }
+            //}
+            //else
+            //{
+            //    DialogResult res = MessageBox.Show("Это нолик?", "Нейрон", MessageBoxButtons.YesNoCancel);
+            //    if (res == DialogResult.No)
+            //    {
+            //        delta = 1 - 0;
+            //        for (int i = 0; i < img.Width; i++)
+            //        {
+            //            for (int j = 0; j < img.Height; j++)
+            //            {
+            //                WeightArray[i, j] += alpha * delta * imgArray[i, j];
+            //            }
+            //        }
+            //        error = 1;
+            //    }
+            //}
 
             StreamWriter sw1 = new StreamWriter(@"C:\Users\Imag0136\Pictures\text1.txt");
             StreamWriter sw2 = new StreamWriter(@"C:\Users\Imag0136\Pictures\text2.txt");
@@ -93,19 +132,26 @@ namespace Lab0
             }
             sw1.Close();
             sw2.Close();
+        }
 
-            //return error == 0;
+        public void Recognize(Bitmap img)
+        {
+            sum = 0;
+            imgArray = new int[100, 100];
+            for (int i = 0; i < img.Width; i++)
+            {
+                for (int j = 0; j < img.Height; j++)
+                {
+                    if (img.GetPixel(i, j) == Color.FromArgb(255, 0, 0, 0))
+                    {
+                        imgArray[i, j] = 1;
+                        sum += imgArray[i, j] * WeightArray[i, j];
+                    }
+                }
+            }
 
-            //StreamWriter sw = new StreamWriter(@"C:\Users\Imag0136\Pictures\text.txt");
-            //for (int i = 0; i < img.Height; i++)
-            //{
-            //    for (int j = 0; j < img.Width; j++)
-            //    {
-            //        sw.Write($"{imgArray[j, i]}");
-            //    }
-            //    sw.WriteLine();
-            //}
-            //sw.Close();
+            if (sum > limit) MessageBox.Show("Это крестик");
+            else MessageBox.Show("Это нолик");
         }
     }
 }

@@ -31,6 +31,7 @@ namespace Lab0
                 for (int j = 0; j < 100; j++)
                     neuron.WeightArray[i, j] = Convert.ToDouble(rand.Next(-3, 4) / 10.0);
             //_____________________________________________________________________
+            neuron.Learn(img);
         }
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
@@ -76,11 +77,9 @@ namespace Lab0
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void recognizeButton_Click(object sender, EventArgs e)
         {
-
-            neuron.Learn(img);
-
+            neuron.Recognize(img);
             pictureBox1.Image = new Bitmap(pictureBox1.Width, pictureBox1.Height);
         }
 
