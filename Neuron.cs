@@ -20,6 +20,15 @@ namespace Lab0
         public double alpha = 0.5; //Скорость обучения
         public double delta;
 
+
+        public string GetRandomFile()
+        {
+            Random rand = new Random();
+            string[] files1 = Directory.GetFiles(Directory.GetCurrentDirectory(), "*Крестик*.jpg");
+            string[] files2 = Directory.GetFiles(Directory.GetCurrentDirectory(), "*Нолик*.jpg");
+            Console.WriteLine(files1[rand.Next(files1.Length)]);
+            return files1[rand.Next(files1.Length)];
+        }
         public void Learn(Bitmap img)
         {
             sum = 0;

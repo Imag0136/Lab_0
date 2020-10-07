@@ -72,21 +72,15 @@ namespace Lab0
             if (pictureBox1.Image != null) //если в pictureBox есть изображение
             {
                 DateTime now = DateTime.Now;
-                pictureBox1.Image.Save($"{now:yyyy'-'MM'-'dd}.jpg");
+                pictureBox1.Image.Save($"{now:mm'-'ss}.jpg");
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+
             neuron.Learn(img);
-            //if (neuron.Learn(img))
-            //{
-            //    MessageBox.Show("Все ок");
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Все не ок");
-            //}
+
             pictureBox1.Image = new Bitmap(pictureBox1.Width, pictureBox1.Height);
         }
 
