@@ -82,19 +82,5 @@ namespace Lab0
             neuron.Recognize(img);
             pictureBox1.Image = new Bitmap(pictureBox1.Width, pictureBox1.Height);
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            StreamWriter sw = new StreamWriter(@"C:\Users\Imag0136\Pictures\text.txt");
-            for (int i = 0; i < img.Height; i++)
-            {
-                for (int j = 0; j < img.Width; j++)
-                {
-                    sw.Write($"{Math.Round(neuron.WeightArray[i, j])} ");
-                }
-                sw.WriteLine();
-            }
-            sw.Close();
-        }
     }
 }
