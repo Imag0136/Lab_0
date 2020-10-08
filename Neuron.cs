@@ -6,16 +6,16 @@ namespace Lab0
 {
     class Neuron
     {
-        public byte t = 0;
-        public byte error = 0;
-        public int limit = 0;
-        public double sum = 0; //сумма
+        byte t = 0;
+        byte error = 0;
+        int limit = 0;
+        double sum = 0; //сумма
         public int[,] imgArray; // матрица входов
         public double[,] weightArray = new double[100, 100]; //матрица весовых коэффициентов
-        public double alpha = 0.4; //Скорость обучения
-        public double delta;
-        public int y; //фактический результат
-        public int yk; //ожидаемый результат
+        double alpha = 0.4; //Скорость обучения
+        double delta;
+        int y; //фактический результат
+        int yk; //ожидаемый результат
 
         public Neuron()
         {
@@ -53,12 +53,11 @@ namespace Lab0
                 if (y != yk)
                 {
                     delta = yk - y;
-                    //Проверять imgArray == 0
                     for (int i = 0; i < img.Width; i++)
                     {
                         for (int j = 0; j < img.Height; j++)
                         {
-                            weightArray[i, j] += alpha * delta * imgArray[i, j];
+                            if (imgArray[i, j] == 1) weightArray[i, j] += alpha * delta;
                         }
                     }
                     error = 1;
@@ -66,6 +65,23 @@ namespace Lab0
             }
             if (error == 1) Learn(img);
             else Console.WriteLine($"t = {t}");
+        }
+
+        public void Output()
+        {
+            sum = 0;
+            imgArray = new int[100, 100];
+            for (int i = 0; i < Img.Width; i++)
+            {
+                for (int j = 0; j < Img.Height; j++)
+                {
+                    if (Img.GetPixel(i, j) == Color.FromArgb(255, 0, 0, 0))
+                    {
+                        imgArray[i, j] = 1;
+                        sum += imgArray[i, j] * weightArray[i, j];
+                    }
+                }
+            }
         }
 
         public void Recognize(Bitmap img)

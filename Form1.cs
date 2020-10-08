@@ -10,7 +10,7 @@ namespace Lab0
         Point old = new Point();
         Pen p = new Pen(Color.Black, 5);
         Graphics g;
-        Bitmap img;
+        public Bitmap img;
         Neuron neuron = new Neuron();
 
         public Form1()
