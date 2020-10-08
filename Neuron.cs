@@ -12,7 +12,7 @@ namespace Lab0
         public double sum = 0; //сумма
         public int[,] imgArray; // матрица входов
         public double[,] weightArray = new double[100, 100]; //матрица весовых коэффициентов
-        public double alpha = 0.5; //Скорость обучения
+        public double alpha = 0.4; //Скорость обучения
         public double delta;
         public int y; //фактический результат
         public int yk; //ожидаемый результат
@@ -26,17 +26,16 @@ namespace Lab0
                     weightArray[i, j] = Convert.ToDouble(rand.Next(-3, 4) / 10.0);
         }
 
-
-
         public void Learn(Bitmap img)
         {
             t += 1;
             error = 0;
             for (int k = 0; k < 10; k++)
             {
-                sum = 0;
-                imgArray = new int[100, 100];
                 img = k < 5 ? new Bitmap($"Крестик{k}.jpg") : new Bitmap($"Нолик{k}.jpg");
+                //Функция распознания_________________________________
+                sum = 0;
+                imgArray = new int[100, 100];                
                 for (int i = 0; i < img.Width; i++)
                 {
                     for (int j = 0; j < img.Height; j++)
@@ -48,11 +47,13 @@ namespace Lab0
                         }
                     }
                 }
+                //____________________________________________________
                 y = sum > limit ? 1 : 0;
                 yk = k < 5 ? 1 : 0;
                 if (y != yk)
                 {
                     delta = yk - y;
+                    //Проверять imgArray == 0
                     for (int i = 0; i < img.Width; i++)
                     {
                         for (int j = 0; j < img.Height; j++)
@@ -69,6 +70,7 @@ namespace Lab0
 
         public void Recognize(Bitmap img)
         {
+            //Функция распознания_________________________________
             sum = 0;
             imgArray = new int[100, 100];
             for (int i = 0; i < img.Width; i++)
@@ -82,6 +84,7 @@ namespace Lab0
                     }
                 }
             }
+            //____________________________________________________
             if (sum > limit) MessageBox.Show("Это крестик");
             else MessageBox.Show("Это нолик");
         }
