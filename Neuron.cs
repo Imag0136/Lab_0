@@ -11,7 +11,7 @@ namespace Lab0
 {
     class Neuron
     {
-        //public byte t = 0;
+        public byte t = 0;
         public byte error = 0;
         public int limit = 0;
         public double sum = 0;
@@ -36,7 +36,8 @@ namespace Lab0
         }
 
         public void Learn(Bitmap img)
-        {          
+        {
+            t += 1;
             error = 0;
             for (int k = 0; k < 10; k++)
             {
@@ -70,7 +71,11 @@ namespace Lab0
                     error = 1;
                 }
             }
+
             if (error == 1) Learn(img);
+            else Console.WriteLine($"Количество эпох: {t}");
+
+
 
             //StreamWriter sw1 = new StreamWriter(@"C:\Users\Imag0136\Pictures\text1.txt");
             //StreamWriter sw2 = new StreamWriter(@"C:\Users\Imag0136\Pictures\text2.txt");
