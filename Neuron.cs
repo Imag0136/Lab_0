@@ -14,26 +14,24 @@ namespace Lab0
         public byte t = 0;
         public byte error = 0;
         public int limit = 0;
-        public double sum = 0;
-        public int[,] imgArray;
-        public double[,] WeightArray { get; set; } = new double[100, 100];
+        public double sum = 0; //сумма
+        public int[,] imgArray; // матрица входов
+        public double[,] weightArray = new double[100, 100]; //матрица весовых коэффициентов
         public double alpha = 0.5; //Скорость обучения
         public double delta;
-        public string PathX;
-        public string PathO;
-        public int y;
-        public int yk;
+        public int y; //фактический результат
+        public int yk; //ожидаемый результат
 
-        public void GetRandomFile()
+        public Neuron()
         {
-            Random rand = new Random();
-            string[] files1 = Directory.GetFiles(Directory.GetCurrentDirectory(), "*Крестик*.jpg");
-            string[] files2 = Directory.GetFiles(Directory.GetCurrentDirectory(), "*Нолик*.jpg");
-            Console.WriteLine(files1[rand.Next(files1.Length)]);
-            PathX = files1[rand.Next(files1.Length)];
-            PathO = files2[rand.Next(files2.Length)];
-            //return files1[rand.Next(files1.Length)];
+            //Установление случайных весов
+            Random rand = new Random((int)DateTime.Now.Ticks);
+            for (int i = 0; i < 100; i++)
+                for (int j = 0; j < 100; j++)
+                    weightArray[i, j] = Convert.ToDouble(rand.Next(-3, 4) / 10.0);
         }
+
+
 
         public void Learn(Bitmap img)
         {
@@ -51,13 +49,12 @@ namespace Lab0
                         if (img.GetPixel(i, j) == Color.FromArgb(255, 0, 0, 0))
                         {
                             imgArray[i, j] = 1;
-                            sum += imgArray[i, j] * WeightArray[i, j];
+                            sum += imgArray[i, j] * weightArray[i, j];
                         }
                     }
                 }
                 y = sum > limit ? 1 : 0;
                 yk = k < 5 ? 1 : 0;
-
                 if (y != yk)
                 {
                     delta = yk - y;
@@ -65,32 +62,14 @@ namespace Lab0
                     {
                         for (int j = 0; j < img.Height; j++)
                         {
-                            WeightArray[i, j] += alpha * delta * imgArray[i, j];
+                            weightArray[i, j] += alpha * delta * imgArray[i, j];
                         }
                     }
                     error = 1;
                 }
             }
-
             if (error == 1) Learn(img);
-            else Console.WriteLine($"Количество эпох: {t}");
-
-
-
-            //StreamWriter sw1 = new StreamWriter(@"C:\Users\Imag0136\Pictures\text1.txt");
-            //StreamWriter sw2 = new StreamWriter(@"C:\Users\Imag0136\Pictures\text2.txt");
-            //for (int i = 0; i < img.Height; i++)
-            //{
-            //    for (int j = 0; j < img.Width; j++)
-            //    {
-            //        sw1.Write($"{imgArray[i, j]} ");
-            //        sw2.Write($"{Math.Round(WeightArray[i, j])} ");
-            //    }
-            //    sw1.WriteLine();
-            //    sw2.WriteLine();
-            //}
-            //sw1.Close();
-            //sw2.Close();
+            else Console.WriteLine($"t = {t}");
         }
 
         public void Recognize(Bitmap img)
@@ -104,11 +83,10 @@ namespace Lab0
                     if (img.GetPixel(i, j) == Color.FromArgb(255, 0, 0, 0))
                     {
                         imgArray[i, j] = 1;
-                        sum += imgArray[i, j] * WeightArray[i, j];
+                        sum += imgArray[i, j] * weightArray[i, j];
                     }
                 }
             }
-
             if (sum > limit) MessageBox.Show("Это крестик");
             else MessageBox.Show("Это нолик");
         }

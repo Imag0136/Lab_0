@@ -25,12 +25,7 @@ namespace Lab0
             InitializeComponent();
             pictureBox1.Image = new Bitmap(pictureBox1.Width, pictureBox1.Height);
             p.SetLineCap(System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.DashCap.Round);
-            //Установление случайных весов_________________________________________
-            Random rand = new Random((int)DateTime.Now.Ticks);
-            for (int i = 0; i < 100; i++)
-                for (int j = 0; j < 100; j++)
-                    neuron.WeightArray[i, j] = Convert.ToDouble(rand.Next(-3, 4) / 10.0);
-            //_____________________________________________________________________
+            
             neuron.Learn(img);
         }
 
