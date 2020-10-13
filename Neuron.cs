@@ -9,7 +9,6 @@ namespace Lab0
         byte t = 0;
         byte error = 0;
         int limit = 0;
-        double sum = 0; //сумма
         public int[,] imgArray; // матрица входов
         public double[,] weightArray = new double[100, 100]; //матрица весовых коэффициентов
         double alpha = 0.4; //Скорость обучения
@@ -22,8 +21,12 @@ namespace Lab0
             //Установление случайных весов
             Random rand = new Random((int)DateTime.Now.Ticks);
             for (int i = 0; i < 100; i++)
+            {
                 for (int j = 0; j < 100; j++)
+                {
                     weightArray[i, j] = Convert.ToDouble(rand.Next(-3, 4) / 10.0);
+                }
+            }
         }
 
         public void Learn(Bitmap img)
@@ -33,22 +36,7 @@ namespace Lab0
             for (int k = 0; k < 10; k++)
             {
                 img = k < 5 ? new Bitmap($"Крестик{k}.jpg") : new Bitmap($"Нолик{k}.jpg");
-                //Функция распознания_________________________________
-                sum = 0;
-                imgArray = new int[100, 100];                
-                for (int i = 0; i < img.Width; i++)
-                {
-                    for (int j = 0; j < img.Height; j++)
-                    {
-                        if (img.GetPixel(i, j) == Color.FromArgb(255, 0, 0, 0))
-                        {
-                            imgArray[i, j] = 1;
-                            sum += imgArray[i, j] * weightArray[i, j];
-                        }
-                    }
-                }
-                //____________________________________________________
-                y = sum > limit ? 1 : 0;
+                y = Output(img) > limit ? 1 : 0;
                 yk = k < 5 ? 1 : 0;
                 if (y != yk)
                 {
@@ -67,27 +55,9 @@ namespace Lab0
             else Console.WriteLine($"t = {t}");
         }
 
-        public void Output()
+        public double Output(Bitmap img)
         {
-            sum = 0;
-            imgArray = new int[100, 100];
-            for (int i = 0; i < Img.Width; i++)
-            {
-                for (int j = 0; j < Img.Height; j++)
-                {
-                    if (Img.GetPixel(i, j) == Color.FromArgb(255, 0, 0, 0))
-                    {
-                        imgArray[i, j] = 1;
-                        sum += imgArray[i, j] * weightArray[i, j];
-                    }
-                }
-            }
-        }
-
-        public void Recognize(Bitmap img)
-        {
-            //Функция распознания_________________________________
-            sum = 0;
+            double sum = 0; //сумма
             imgArray = new int[100, 100];
             for (int i = 0; i < img.Width; i++)
             {
@@ -100,8 +70,12 @@ namespace Lab0
                     }
                 }
             }
-            //____________________________________________________
-            if (sum > limit) MessageBox.Show("Это крестик");
+            return sum;
+        }
+
+        public void Recognize(Bitmap img)
+        {
+            if (Output(img) > limit) MessageBox.Show("Это крестик");
             else MessageBox.Show("Это нолик");
         }
     }
